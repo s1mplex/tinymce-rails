@@ -764,16 +764,14 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		}
 
 		function spellcheck() {
+			started = true;
 			finish();
 
 			function errorCallback(message) {
 				editor.windowManager.alert(message);
-				editor.setProgressState(false);
 				finish();
 			}
 
-
-			editor.setProgressState(true);
 			sendRpcCall("spellcheck", getTextMatcher().text, markErrors, errorCallback);
 			editor.focus();
 		}
@@ -814,9 +812,6 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		}
 
 		function finish() {
-			editor.fire('SpellcheckEnd');
-			getTextMatcher().reset();
-			self.textMatcher = null;
 		}
 
 		function getElmIndex(elm) {
@@ -917,11 +912,8 @@ define("tinymce/spellcheckerplugin/Plugin", [
 				suggestions = data;
 			}
 
-			editor.setProgressState(false);
-
 			if (isEmpty(suggestions)) {
 				editor.windowManager.alert('No misspellings found');
-				started = false;
 				return;
 			}
 
@@ -937,7 +929,6 @@ define("tinymce/spellcheckerplugin/Plugin", [
 				});
 			});
 
-			started = true;
 			editor.fire('SpellcheckStart');
 			editor.selection.moveToBookmark(bookmark);
 		}
