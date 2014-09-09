@@ -817,11 +817,6 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		function finish() {
 			getTextMatcher().reset();
 			self.textMatcher = null;
-
-			if (started) {
-				started = false;
-				editor.fire('SpellcheckEnd');
-			}
 		}
 
 		function getElmIndex(elm) {
