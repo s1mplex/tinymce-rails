@@ -764,12 +764,8 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		}
 
 		function spellcheck() {
-			if (started) {
-				finish();
-				return;
-			} else {
-				finish();
-			}
+			finish();
+
 
 			function errorCallback(message) {
 				editor.windowManager.alert(message);
