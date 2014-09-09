@@ -766,7 +766,6 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		function spellcheck() {
 			finish();
 
-
 			function errorCallback(message) {
 				editor.windowManager.alert(message);
 				editor.setProgressState(false);
@@ -815,6 +814,7 @@ define("tinymce/spellcheckerplugin/Plugin", [
 		}
 
 		function finish() {
+			editor.fire('SpellcheckEnd');
 			getTextMatcher().reset();
 			self.textMatcher = null;
 		}
